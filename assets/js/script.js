@@ -37,7 +37,7 @@ function displayBookCarousel(array){
 
     //create an array of sub-arrays of a length
     var arrayOfArrays = [];
-    var size = 5;
+    var size = 3;
     for(var i = 0; i<array.length; i++){
         arrayOfArrays.push(array.slice(i, i+=size))
     }
@@ -51,7 +51,7 @@ function displayBookCarousel(array){
  
         var coverUrl = "https://covers.openlibrary.org/b/id/" + firstArray[i] + "-M.jpg"
         var newCard = $('<div>')
-        newCard.addClass("card mx-5")
+        newCard.addClass("card")
         var coverImg = $('<img>')
         coverImg.attr('src', coverUrl );
         newCard.append(coverImg);
@@ -72,7 +72,7 @@ function displayBookCarousel(array){
         for(var i = 0; i < arrayOfArrays[j].length; i++){   
             var coverUrl = "https://covers.openlibrary.org/b/id/" + arrayOfArrays[j][i] + "-M.jpg"
         var newCard = $('<div>')
-        newCard.addClass("card mx-4")
+        newCard.addClass("card")
         var coverImg = $('<img>')
         coverImg.attr('src', coverUrl );
         newCard.append(coverImg);

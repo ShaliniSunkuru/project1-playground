@@ -1,14 +1,32 @@
 .card-wrapper{
     display: flex;
+    border: 1px solid brown;
+    margin: 5px;
 }
 
+.card{
+    margin: 5px;
+}
 .card img{
-    width: 150px;
+    width: 125px;
     height: 200px;
 }
 .carousel-inner{
     /* border: 2px solid black; */
-    width: 1000px;
-    margin-left: 200px;
-    margin-right: 200px;
+    /* width: 1000px; */
+    /* margin-left: 200px; */
+    /* margin-right: 200px; */
+}
+
+.column{
+    border: 1px solid black;
+    padding: 50px 5px;
+}
+.carousel-button{
+    width: fit-content;
+    height: fit-content;
+    top: 100px;
+    background-color: gray;
+    border-radius: 50%;
+    
 }
