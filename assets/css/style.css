@@ -11,12 +11,12 @@
     width: 125px;
     height: 200px;
 }
-.carousel-inner{
-    /* border: 2px solid black; */
-    /* width: 1000px; */
-    /* margin-left: 200px; */
-    /* margin-right: 200px; */
-}
+/* .carousel-inner{
+    border: 2px solid black; 
+    width: 1000px;
+    margin-left: 200px;
+    margin-right: 200px; 
+} */
 
 .column{
     border: 1px solid black;
