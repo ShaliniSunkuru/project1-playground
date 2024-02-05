@@ -1,33 +1,38 @@
 
-var q = "danielle steel"
-var authorKey =""
+var authorName = "ray bradbury" // TO DO: get author name from search box
+var authorKey = ""
 var coversArray =[]
 
-queryUrl = "https://openlibrary.org/search/authors.json?q=" + q;
+queryUrl = "https://openlibrary.org/search/authors.json?q=" + authorName;
 
 worksQueryUrl=  "" 
 
+//fetch author data
 fetch(queryUrl)
 .then(function(response){
     return response.json()
 })
-.then(function(data){
-    console.log(data)
-    console.log(data.docs[0].key)
-    authorKey = data.docs[0].key;
+.then(function(authorData){
+ 
+    authorKey = authorData.docs[0].key;
     worksQueryUrl ="https://openlibrary.org/authors/" + authorKey + "/works.json"
+
+    //fetch author works
     fetch(worksQueryUrl)
     .then(function(response){
         return response.json()
     })
-    .then(function(data){
-        console.log(data.entries);
-        for(var i = 0; i< (data.entries).length; i++){
-            if('covers' in data.entries[i]){
-                coversArray.push(data.entries[i].covers[0]);
+    .then(function(authorWorks){
+        for(var i = 0; i< (authorWorks.entries).length; i++){
+            //check if cover ID exists for work
+            if('covers' in authorWorks.entries[i]){
+                var coverToPush = authorWorks.entries[i].covers[0];
+                if(coverToPush > 0){
+                    coversArray.push(coverToPush);
+                }
+                                            
             }
         }
-        console.log(coversArray);
         displayBookCarousel(coversArray);
     })
 
@@ -35,17 +40,15 @@ fetch(queryUrl)
 
 function displayBookCarousel(array){
 
-    //create an array of sub-arrays of a length
+    //create an array of sub-arrays of a length = number of books per carsousel item
     var arrayOfArrays = [];
     var size = 3;
     for(var i = 0; i<array.length; i++){
         arrayOfArrays.push(array.slice(i, i+=size))
     }
-    console.log(arrayOfArrays)
 
     //set first carousel item of carousel 
     var firstArray = arrayOfArrays[0];
-    console.log(firstArray);
     var firstCardWrapper = $('#firstCardWrapper');
     for(var i = 0; i < firstArray.length; i++){
  
@@ -78,8 +81,7 @@ function displayBookCarousel(array){
         newCard.append(coverImg);
         newCardDiv.append(newCard);
         
-        }
-        
+        }        
         
         innerCarousel.append(newCarouselItem);
     }       
@@ -87,10 +89,12 @@ function displayBookCarousel(array){
 }
 
 var carousel = $('#coverCarousel');
-carousel.on("click", function(event){
+carousel.on("click", ".card", function(event){
     console.log("I'm clicked");
     var clickedImgSrc = ($(event.target)).attr('src');
     console.log(clickedImgSrc)
-    var clickedImgCover = clickedImgSrc.substr(36,6);
-    console.log(clickedImgCover);
+    //replace all non-numeric character in string with empty string to extract cover ID
+    var clickedImgCover =  clickedImgSrc.replace(/\D/g, "");
+    
+    // TO DO: fetch book synopsis from cover id
 })
